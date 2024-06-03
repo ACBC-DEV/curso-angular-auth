@@ -74,7 +74,7 @@
         *ngIf="form.controls.password.hasError('minlength')"
         class="font-medium text-red-500 text-xs mt-1 ml-1"
       >
-        This field should be greater than 6 characters
+        This field should be greater than 8 characters
       </p>
     </div>
   </div>
@@ -103,7 +103,7 @@
         *ngIf="form.controls.confirmPassword.hasError('minlength')"
         class="font-medium text-red-500 text-xs mt-1 ml-1"
       >
-        This field should be greater than 6 characters
+        This field should be greater than 8 characters
       </p>
     </div>
   </div>
@@ -116,6 +116,12 @@
     </p>
   </div>
   <div>
+    <p
+      *ngIf="this.alreadyExists"
+      class="font-medium text-red-500 text-xs my-1 ml-1"
+    >
+      The email is already registered go to the login page
+    </p>
     <app-btn typeBtn="submit" color="success" [loading]="status === 'loading'"
       >Register</app-btn
     >
