@@ -1,5 +1,53 @@
-<h1 class="text-center font-bold py-2 text-gray-700">Enter your data</h1>
-<form [formGroup]="form" novalidate class="space-y-4" (ngSubmit)="register()">
+<form
+  *ngIf="!showRegister"
+  [formGroup]="formUser"
+  novalidate
+  class="mb-2 space-y-4"
+  (ngSubmit)="validateUser()"
+>
+  <div>
+    <h2>Enter your email</h2>
+    <div class="relative">
+      <input
+        formControlName="email"
+        placeholder="Enter email"
+        type="email"
+        name="email"
+        class="w-full bg-gray-100 border-2 border-gray-300 rounded"
+      />
+    </div>
+    <div
+      *ngIf="formUser.controls.email.touched && formUser.controls.email.invalid"
+    >
+      <p
+        *ngIf="formUser.controls.email.hasError('required')"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
+      >
+        This field is mandatory
+      </p>
+      <p
+        *ngIf="formUser.controls.email.hasError('email')"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
+      >
+        This field should be a email
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <app-btn typeBtn="submit" color="success" [loading]="status === 'loading'"
+      >Continue</app-btn
+    >
+  </div>
+</form>
+<form
+  *ngIf="showRegister"
+  [formGroup]="form"
+  novalidate
+  class="space-y-4"
+  (ngSubmit)="register()"
+>
+  <h1 class="py-2 font-bold text-center text-gray-700">Enter your data</h1>
   <div>
     <div class="relative">
       <input
@@ -7,13 +55,13 @@
         placeholder="Enter your name"
         type="text"
         name="name"
-        class="w-full rounded bg-gray-100 border-gray-300 border-2"
+        class="w-full bg-gray-100 border-2 border-gray-300 rounded"
       />
     </div>
     <div *ngIf="form.controls.name.touched && form.controls.name.invalid">
       <p
         *ngIf="form.controls.name.hasError('required')"
-        class="font-medium text-red-500 text-xs mt-1 ml-1"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
       >
         This field is mandatory
       </p>
@@ -27,19 +75,19 @@
         placeholder="Enter email"
         type="email"
         name="email"
-        class="w-full rounded bg-gray-100 border-gray-300 border-2"
+        class="w-full bg-gray-100 border-2 border-gray-300 rounded"
       />
     </div>
     <div *ngIf="form.controls.email.touched && form.controls.email.invalid">
       <p
         *ngIf="form.controls.email.hasError('required')"
-        class="font-medium text-red-500 text-xs mt-1 ml-1"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
       >
         This field is mandatory
       </p>
       <p
         *ngIf="form.controls.email.hasError('email')"
-        class="font-medium text-red-500 text-xs mt-1 ml-1"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
       >
         This field should be a email
       </p>
@@ -51,11 +99,12 @@
         formControlName="password"
         placeholder="Enter password"
         [type]="showPassword ? 'text' : 'password'"
-        class="w-full rounded bg-gray-100 border-gray-300 border-2"
+        class="w-full bg-gray-100 border-2 border-gray-300 rounded"
       />
       <button
+        tabindex="-1"
         type="button"
-        class="p-2 absolute right-2"
+        class="absolute p-2 right-2"
         (click)="showPassword = !showPassword"
       >
         <fa-icon [icon]="showPassword ? faEye : faEyeSlash"></fa-icon>
@@ -66,13 +115,13 @@
     >
       <p
         *ngIf="form.controls.password.hasError('required')"
-        class="font-medium text-red-500 text-xs mt-1 ml-1"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
       >
         This field is mandatory
       </p>
       <p
         *ngIf="form.controls.password.hasError('minlength')"
-        class="font-medium text-red-500 text-xs mt-1 ml-1"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
       >
         This field should be greater than 8 characters
       </p>
@@ -84,7 +133,7 @@
         formControlName="confirmPassword"
         placeholder="Confirm password"
         type="password"
-        class="w-full rounded bg-gray-100 border-gray-300 border-2"
+        class="w-full bg-gray-100 border-2 border-gray-300 rounded"
       />
     </div>
     <div
@@ -95,13 +144,13 @@
     >
       <p
         *ngIf="form.controls.confirmPassword.hasError('required')"
-        class="font-medium text-red-500 text-xs mt-1 ml-1"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
       >
         This field is mandatory
       </p>
       <p
         *ngIf="form.controls.confirmPassword.hasError('minlength')"
-        class="font-medium text-red-500 text-xs mt-1 ml-1"
+        class="mt-1 ml-1 text-xs font-medium text-red-500"
       >
         This field should be greater than 8 characters
       </p>
@@ -110,7 +159,7 @@
   <div *ngIf="form.controls.confirmPassword.touched">
     <p
       *ngIf="form.hasError('mismatch')"
-      class="font-medium text-red-500 text-xs mt-1 ml-1"
+      class="mt-1 ml-1 text-xs font-medium text-red-500"
     >
       The password are not the same
     </p>
@@ -118,7 +167,7 @@
   <div>
     <p
       *ngIf="this.alreadyExists"
-      class="font-medium text-red-500 text-xs my-1 ml-1"
+      class="my-1 ml-1 text-xs font-medium text-red-500"
     >
       The email is already registered go to the login page
     </p>

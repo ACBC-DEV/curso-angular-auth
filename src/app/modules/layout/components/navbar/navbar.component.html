@@ -1,5 +1,5 @@
-<nav class="bg-sky-700 border-gray-200 px-6 shadow-md">
-  <div class="flex flex-wrap justify-between items-center">
+<nav class="px-6 border-gray-200 shadow-md bg-sky-700">
+  <div class="flex flex-wrap items-center justify-between">
     <div class="flex items-center">
       <a routerLink="/app">
         <img
@@ -25,7 +25,9 @@
             </app-btn>
           </li>
           <li>
-            <a routerLink="/app/users" class="block py-3 px-4 text-white">Users</a>
+            <a routerLink="/app/users" class="block px-4 py-3 text-white"
+              >Users</a
+            >
           </li>
           <li>
             <app-btn typeBtn="button" color="sky">Create</app-btn>
@@ -68,18 +70,18 @@
   (overlayOutsideClick)="isOpenOverlayAvatar = !isOpenOverlayAvatar"
 >
   <div
-    class="z-50 my-4 w-60 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"
+    class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-60"
   >
-    <div class="py-2 px-4 text-center relative">
-      <span class="block text-normal text-gray-900">Account</span>
+    <div class="relative px-4 py-2 text-center">
+      <span class="block text-gray-900 text-normal">Account</span>
       <button
         (click)="isOpenOverlayAvatar = !isOpenOverlayAvatar"
-        class="block text-sm text-gray-900 absolute right-3 top-3"
+        class="absolute block text-sm text-gray-900 right-3 top-3"
       >
         <fa-icon [icon]="faClose"></fa-icon>
       </button>
     </div>
-    <div class="py-3 px-4 flex items-center space-x-4">
+    <div class="flex items-center px-4 py-3 space-x-4">
       <img
         class="w-10 h-10 rounded-full"
         src="https://api.lorem.space/image/face?w=400&h=400"
@@ -94,32 +96,37 @@
       <li>
         <a
           routerLink="/app/profile"
-          class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
           >Profile</a
         >
       </li>
       <li>
         <a
-          class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
           >Activity</a
         >
       </li>
       <li>
         <a
-          class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
           >Cards</a
         >
       </li>
       <li>
         <a
-          class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
           >Settings</a
         >
       </li>
     </ul>
     <ul class="py-1">
       <li>
-        <a class="block py-2 px-4 text-sm text-gray-700">Log out</a>
+        <button
+          class="block px-4 py-2 text-sm text-gray-700 hover:text-red-500"
+          (click)="logout()"
+        >
+          Log out
+        </button>
       </li>
     </ul>
   </div>
@@ -132,17 +139,17 @@
   (overlayOutsideClick)="isOpenOverlayBoards = !isOpenOverlayBoards"
 >
   <div
-    class="z-50 my-4 w-60 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"
+    class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-60"
   >
-    <div class="py-2 px-4 text-center relative">
-      <span class="block text-normal text-gray-900">Boards</span>
+    <div class="relative px-4 py-2 text-center">
+      <span class="block text-gray-900 text-normal">Boards</span>
       <button
         (click)="isOpenOverlayBoards = !isOpenOverlayBoards"
-        class="block text-sm text-gray-900 absolute right-3 top-3"
+        class="absolute block text-sm text-gray-900 right-3 top-3"
       >
         <fa-icon [icon]="faClose"></fa-icon>
       </button>
     </div>
-    <div class="py-3 px-4 flex justify-between">Content</div>
+    <div class="flex justify-between px-4 py-3">Content</div>
   </div>
 </ng-template>

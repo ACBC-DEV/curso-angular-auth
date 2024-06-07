@@ -16,6 +16,9 @@ export class RegisterFormComponent {
   router = inject(Router);
   authService = inject(AuthService);
   //FORM
+  formUser = this.formBuilder.group({
+    email: ['', [Validators.email, Validators.required]],
+  })
   form = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.email, Validators.required]],
@@ -25,6 +28,8 @@ export class RegisterFormComponent {
     validators: [CustomValidators.MatchValidator('password', 'confirmPassword')]
   });
   status: Status = 'init';
+  statusUser: Status = 'init';
+  showRegister = false;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   showPassword = false;
@@ -34,10 +39,10 @@ export class RegisterFormComponent {
       this.status = 'loading';
       const { name, email, password } = this.form.getRawValue();
       console.log(name, email, password);
-      this.authService.register(name, email, password).subscribe({
+      this.authService.registerAndLogin(name, email, password).subscribe({
         next: () => {
           this.status = 'success';
-
+          this.router.navigate(['/app/boards']);
         },
         error: ({ error }) => {
           if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
@@ -51,6 +56,24 @@ export class RegisterFormComponent {
       this.form.markAllAsTouched();
     }
   }
+  validateUser() {
+    if (this.formUser.valid) {
+      this.statusUser = 'loading';
+      const { email } = this.formUser.getRawValue();
+      this.authService.isAvailable(email ?? '').subscribe({
+        next: (rta) => {
+          this.status = 'success';
+          if (rta.isAvailable) {
+            this.form.controls.email.setValue(email ?? "");
+            this.showRegister = true;
+          } else this.router.navigate(['/login'], { queryParams: { email } });
 
+        },
+        error: () => {
+          this.status = 'failed';
+        }
+      })
+    }
+  }
 
 }
